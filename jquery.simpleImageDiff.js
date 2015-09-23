@@ -1,6 +1,6 @@
 (function(W, D, $){
     var defaults = {
-        controlSpace: 18, //css padding
+        controlSpace: 18, //css paddingg
         layout: {
             container: '<div class="b-diff"></div>',
             control: '<div class="b-diff__control">' +

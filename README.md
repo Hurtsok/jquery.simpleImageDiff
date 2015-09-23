@@ -1,13 +1,13 @@
 # jquery.simpleImageDiff
 
 Responsive image diff tool
-Works in all modern browsers include IE >= 9
-
+works in all modern browsers include IE >= 9
+ 
 ## Install
 ```cmd
     bower install jquery.simpleImageDiff --save
 ```
-
+ 
 ## Simple layout
 responsive
 <br/>
