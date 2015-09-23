@@ -1,0 +1,31 @@
+{
+  "name": "jquery.simpleImageDiff",
+  "version": "0.0.1",
+  "description": "Responsive diff images tools",
+  "main": [
+    "jquery.simpleImageDiff.js",
+    "css/jquery.simpleImageDiff.css"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "diff",
+    "images",
+    "tool",
+    "responsive"
+  ],
+  "authors": [
+    "Rudenko Vladimir <hurtsok@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,7 +1,3 @@
-/**
- * Created by hurtsok on 17.09.2015.
- */
-
 (function(W, D, $){
     var defaults = {
         controlSpace: 18, //css padding
