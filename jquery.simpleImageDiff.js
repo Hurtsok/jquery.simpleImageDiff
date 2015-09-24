@@ -79,8 +79,14 @@
                     });
 
                     $images.load(function () {
+                        var img = $('<img src="' + $(this).attr('src') + '"/>');
+
+                        //prevent dragging
+                        img.bind('mousedown', function(){ return false; });
+
                         O.loaded += 1;
-                        O.current.append('<img src="' + $(this).attr('src') + '"/>');
+                        O.current.append(img);
+                        O.current.find('img')
                         if (O.loaded == $images.length) {
                             O.current.trigger('loaded');
                         }
