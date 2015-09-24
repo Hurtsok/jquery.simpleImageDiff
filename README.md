@@ -1,7 +1,6 @@
 # jquery.simpleImageDiff
 
-Responsive image diff tool
-works in all modern browsers include IE >= 9
+Responsive image diff tool works in all modern browsers include IE >= 9
  
 ## Install
 ```cmd
@@ -12,7 +11,7 @@ works in all modern browsers include IE >= 9
 responsive
 <br/>
 ```html
-    <div data-diff="1">
+    <div data-diff>
         <img src="images/1.jpg" />
         <img src="images/2.jpg" />
     </div> 
