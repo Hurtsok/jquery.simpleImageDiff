@@ -1,8 +1,11 @@
 # jquery.simpleImageDiff
 
 Responsive image diff tool works in all modern desktop and mobile browsers include IE >= 9
-Need jquery >= 1.7
+<br/>
 [http://hurtsok.github.io/jquery.simpleImageDiff/](http://hurtsok.github.io/jquery.simpleImageDiff/) 
+
+## Dependencies
+`jQuery >= 1.7`
 
 ## Install
 ```cmd
