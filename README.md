@@ -24,7 +24,7 @@ Need jquery >= 1.7
 ```
 
 ## Options
-```js
+```js 
      { 
         controlSpace: 18,
         layout: {
