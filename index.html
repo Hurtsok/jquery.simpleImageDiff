@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-light.css">
     <link rel="stylesheet" href="https://raw.githubusercontent.com/Hurtsok/jquery.simpleImageDiff/master/css/jquery.simpleImageDiff.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://raw.githubusercontent.com/Hurtsok/jquery.simpleImageDiff/master/jquery.simpleImageDiff.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
@@ -63,9 +64,14 @@ Works in all modern browsers include IE &gt;= 9</p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-   <div data-diff="1">
+   <div data-diff>
         <img src="https://raw.githubusercontent.com/Hurtsok/jquery.simpleImageDiff/master/sample/images/1.jpg" />
         <img src="https://raw.githubusercontent.com/Hurtsok/jquery.simpleImageDiff/master/sample/images/2.jpg" />
-    </div>   
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            $('[data-diff]').simpleImageDiff();
+        });
+    </script>
   </body>
 </html>
