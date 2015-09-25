@@ -1,6 +1,7 @@
 (function(W, D, $){
     var defaults = {
         controlSpace: 18, //css padding
+        maxWidth: 'auto',
         layout: {
             container: '<div class="b-diff"></div>',
             control: '<div class="b-diff__control">' +
@@ -83,6 +84,7 @@
                         if(this.complete){
                             O.loaded += 1;
                             if (O.loaded == $images.length) {
+                                console.log($('.content').width());
                                 O.current.trigger('loaded');
                             }
                         }else{
@@ -127,8 +129,13 @@
                 O.setClipArea(dest);
             },
             resizeItems: function () {
-                var prop = O.current.width() / O.dimensions.width;
+                var prop, width = O.current.width() ;
 
+                if(defaults.maxWidth != 'auto'){
+                    width = (defaults.maxWidth < width) ? defaults.maxWidth : width;
+                }
+
+                prop = width / O.dimensions.width;
                 O.currentImageDim.width = prop * O.dimensions.width;
                 O.currentImageDim.height = prop * O.dimensions.height;
 
