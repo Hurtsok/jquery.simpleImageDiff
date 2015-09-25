@@ -78,6 +78,10 @@
                             O.current.unbind('mousemove.diff touchmove.diff');
                         });
 
+                        $images.bind('mousedown', function(){
+                            return false;
+                        })
+
                     });
 
                     $images.each(function(){
