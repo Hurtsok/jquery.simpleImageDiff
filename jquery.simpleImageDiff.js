@@ -1,6 +1,6 @@
 (function(W, D, $){
     var defaults = {
-        controlSpace: 18, //css paddingg
+        controlSpace: 18, //css padding
         layout: {
             container: '<div class="b-diff"></div>',
             control: '<div class="b-diff__control">' +
@@ -28,7 +28,8 @@
                     O.current = $(defaults.layout.container);
                     O.current.bind('loaded', function () {
                         var controlWidth, parentOffset;
-                        $images = O.current.find('img');
+                        $images = $elem.find('img');
+                        O.current.append($images);
                         O.$control = $(defaults.layout.control);
                         O.$clipedImage = $images.last();
                         O.current.append(O.$control);
@@ -78,19 +79,22 @@
 
                     });
 
-                    $images.load(function () {
-                        var img = $('<img src="' + $(this).attr('src') + '"/>');
-
-                        //prevent dragging
-                        img.bind('mousedown', function(){ return false; });
-
-                        O.loaded += 1;
-                        O.current.append(img);
-                        O.current.find('img')
-                        if (O.loaded == $images.length) {
-                            O.current.trigger('loaded');
+                    $images.each(function(){
+                        if(this.complete){
+                            O.loaded += 1;
+                            if (O.loaded == $images.length) {
+                                O.current.trigger('loaded');
+                            }
+                        }else{
+                            $(this).load(function(){
+                                O.loaded += 1;
+                                if (O.loaded == $images.length) {
+                                    O.current.trigger('loaded');
+                                }
+                            })
                         }
-                    })
+                    });
+
                 }
             },
             getImageRealSize: function (DOMElement) {
