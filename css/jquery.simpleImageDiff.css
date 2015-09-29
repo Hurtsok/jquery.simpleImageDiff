@@ -11,6 +11,6 @@
 .b-diff__arrow              { position: absolute; top: 50%; width: 0; height: 0; -webkit-transition: transform .3s ease; transition: transform .3s ease; -webkit-transform: translate3d(0px, 0, 0); transform: translate3d(0px, 0, 0);}
 .b-diff__arrow_left         { left: 0px; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-right:10px solid #f5f5f5;}
 .b-diff__arrow_right        { right: 0px; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left:10px solid #f5f5f5;}
-.b-diff__title              { background: rgba(0, 0, 0, 0.7); color: #ffffff; font-size: 16px; line-height: 20px; position: absolute; padding: 5px 10px; z-index: 2;}
+.b-diff__title              { background: rgba(0, 0, 0, 0.7); color: #ffffff; font-size: 16px; line-height: 20px; position: absolute; padding: 5px 10px; z-index: 2; max-width: 45%; word-wrap: break-word;}
 .b-diff__title_before       { top: 0px; right: 0px;}
 .b-diff__title_after        { left: 0px; top: 0px;}
