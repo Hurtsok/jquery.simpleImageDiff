@@ -10,6 +10,7 @@
         <div data-diff="1">
             <img src="images/1.jpg" />
             <img src="images/2.jpg" />
+            <img src="images/2.jpg" />
         </div>
     </div>
 
@@ -22,6 +23,15 @@
         </div>
     </div>
     <script type="text/javascript">
-        $('[data-diff]').simpleImageDiff();
+        $('[data-diff]').simpleImageDiff({
+            resize: false,
+            width: 800,
+            titles: {
+                before: 'before',
+                after: 'after'
+            },
+            maxWidth: 2000
+        });
+
     </script>
 </body>

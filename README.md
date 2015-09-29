@@ -30,14 +30,22 @@ Responsive image diff tool works in all modern desktop and mobile browsers inclu
 ```js 
      { 
         controlSpace: 18,
-        maxWidth: 'auto'
+        maxWidth: 'auto', // if maxWidth more than image real width, maxWidth=imageRealWidth,
+        resize: true,
+        width: false  //base width 
+        titles: {
+            before: '',
+            after: ''
+        },
         layout: {
             container: '<div class="b-diff"></div>',
+            item: '<div class="b-diff__item"></div>',
             control: '<div class="b-diff__control">' +
                         '<div class="b-diff__line"></div>' +
                         '<div class="b-diff__arrow b-diff__arrow_left"></div>' +
                         '<div class="b-diff__arrow b-diff__arrow_right"></div>' +
-                     '</div>'
+                     '</div>',
+            title: '<div class="b-diff__title"></div>'
         }
       }      
 ```
