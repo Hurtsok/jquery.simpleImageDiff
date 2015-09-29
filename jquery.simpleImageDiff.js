@@ -31,7 +31,8 @@
             $clipedImage: false,
             $control: false,
             init: function () {
-                var $images = $elem.find('img').slice(0, 2);
+                var $images = $elem.find('img').slice(0, 2),
+                    $body = $('body');
                 if ($images.length == 2) {
                     $elem.css('display', 'none');
                     O.current = $(defaults.layout.container);
@@ -95,22 +96,21 @@
                             O.stopAnimation(O.$control);
                             O.stopAnimation(O.$clipedImage);
 
-                            O.current.bind('mousemove.diff touchmove.diff', function (e) {
+                            $body.bind('mousemove.diff touchmove.diff', function (e) {
                                 e.preventDefault();
                                 var pageX = e.pageX || e.originalEvent.touches[0].pageX;
                                 O.controlPosition = pageX - parentOffset.left;
                                 O.clipAreaRatio = O.controlPosition / O.currentImageDim.width;
                                 O.move(O.controlPosition, O.clipAreaRatio);
                             });
-                        });
 
-                        O.current.bind('mouseup.diff touchend.diff mouseleave.diff touchleave.diff', function () {
-                            O.current.unbind('mousemove.diff touchmove.diff');
-                        });
-
-                        $images.bind('mousedown mouseleave dragstart', function(){
                             return false;
                         });
+
+                        $body.bind('mouseup.diff touchend.diff mouseleave.diff touchleave.diff', function () {
+                            $body.unbind('mousemove.diff touchmove.diff');
+                        });
+
 
                     });
 
