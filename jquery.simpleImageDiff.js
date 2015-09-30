@@ -38,21 +38,24 @@
                     O.current = $(defaults.layout.container);
                     O.current.bind('loaded', function () {
                         var controlWidth, parentOffset;
+
                         //$images = $elem.find('img').slice(0, 1);
 
                         $images.each(function(index){
                             var $item = $(defaults.layout.item),
-                                $title = $(defaults.layout.title);
-                            $item.append($(this));
+                                $el = $(this),
+                                $title = $(defaults.layout.title),
+                                titleText = $el.attr('data-title');
+                            $item.append($el);
 
-                            if(defaults.titles.before && index < 1){
+                            if((defaults.titles.after || titleText)  && index < 1){
                                 $title.addClass('b-diff__title_before');
-                                $item.append($title.text(defaults.titles.after));
+                                $item.append($title.text(titleText || defaults.titles.after));
                             }
 
-                            if(defaults.titles.after && index > 0){
+                            if((defaults.titles.before|| titleText) && index > 0){
                                 $title.addClass('b-diff__title_after');
-                                $item.append($title.text(defaults.titles.before));
+                                $item.append($title.text(titleText || defaults.titles.after));
                             }
 
                             O.current.append($item);
