@@ -33,107 +33,157 @@
             init: function () {
                 var $images = $elem.find('img').slice(0, 2),
                     $body = $('body');
-                if ($images.length == 2) {
+
+                O.current = $(defaults.layout.container);
+                O.current.bind('prebuild', function(){
+                    O.dimensions = O.getImageRealSize($images.first().get(0));
+
                     $elem.css('display', 'none');
-                    O.current = $(defaults.layout.container);
-                    O.current.bind('loaded', function () {
-                        var controlWidth, parentOffset;
 
-                        //$images = $elem.find('img').slice(0, 1);
+                    if(!defaults.width){
+                        defaults.width = O.current.width();
+                    }
 
-                        $images.each(function(index){
-                            var $item = $(defaults.layout.item),
-                                $el = $(this),
-                                $title = $(defaults.layout.title),
-                                titleText = $el.attr('data-title');
-                            $item.append($el);
+                    O.current.insertBefore($elem);
 
-                            if((defaults.titles.after || titleText)  && index < 1){
-                                $title.addClass('b-diff__title_before');
-                                $item.append($title.text(titleText || defaults.titles.after));
-                            }
+                    //setting base height
+                    O.current.css({
+                        height: (defaults.width / O.dimensions.width) * O.dimensions.height
+                    });
+                });
 
-                            if((defaults.titles.before|| titleText) && index > 0){
-                                $title.addClass('b-diff__title_after');
-                                $item.append($title.text(titleText || defaults.titles.after));
-                            }
 
-                            O.current.append($item);
+                O.current.bind('loaded', function () {
+                    var controlWidth, parentOffset,
+                        titles = {};
+                    //$images = $elem.find('img').slice(0, 1);
 
-                        });
+                    titles.before = $images.first().attr('data-title') || defaults.titles.before;
+                    titles.after = $images.last().attr('data-title') || defaults.titles.after;
 
-                        //O.current.append($images);
-                        O.$control = $(defaults.layout.control);
-                        O.$clipedImage = O.current.find('.b-diff__item:last');
-                        O.current.append(O.$control);
-                        $elem.replaceWith(O.current);
-                        parentOffset = O.current.offset();
-                        O.dimensions = O.getImageRealSize($images.first().get(0));
+                    $images.each(function(index){
+                        var $item = $(defaults.layout.item),
+                            $title = $(defaults.layout.title);
+                        $item.append($(this));
 
-                        O.resizeItems(defaults.width);
-
-                        controlWidth = O.$control.width();
-                        O.controlPosition = O.currentImageDim.width / 2 - controlWidth / 2;
-                        O.clipAreaRatio = O.controlPosition / O.currentImageDim.width;
-                        O.move(O.controlPosition);
-
-                        if(defaults.resize) {
-                            $(W).resize(function () {
-                                O.stopAnimation(O.$control);
-                                O.stopAnimation(O.$clipedImage);
-                                O.resizeItems();
-                                O.controlPosition = O.clipAreaRatio * O.currentImageDim.width;
-                                O.move(O.controlPosition);
-                                parentOffset = O.current.offset();
-                            });
+                        if(titles.before && index < 1){
+                            $title.addClass('b-diff__title_before');
+                            $item.append($title.text(titles.after));
                         }
-                        O.current.bind('click', function (e) {
-                            e.preventDefault();
-                            var pageX = e.pageX || e.originalEvent.touches[0].pageX;
 
-                            O.controlPosition = pageX - parentOffset.left;
-                            O.animateItems(O.controlPosition);
-                        })
+                        if(titles.after && index > 0){
+                            $title.addClass('b-diff__title_after');
+                            $item.append($title.text(titles.before));
+                        }
 
-                        O.$control.bind('mousedown.diff touchstart.diff', function (e) {
+                        O.current.append($item);
+
+                    });
+
+                    //O.current.append($images);
+                    O.$control = $(defaults.layout.control);
+                    O.$clipedImage = O.current.find('.b-diff__item:last');
+                    O.current.append(O.$control);
+
+                    parentOffset = O.current.offset();
+
+                    O.resizeItems(defaults.width);
+
+                    controlWidth = O.$control.width();
+                    O.controlPosition = O.currentImageDim.width / 2 - controlWidth / 2;
+                    O.clipAreaRatio = O.controlPosition / O.currentImageDim.width;
+                    O.move(O.controlPosition);
+
+                    $elem.remove();
+
+                    if(defaults.resize) {
+                        $(W).resize(function () {
                             O.stopAnimation(O.$control);
                             O.stopAnimation(O.$clipedImage);
+                            O.resizeItems();
+                            O.controlPosition = O.clipAreaRatio * O.currentImageDim.width;
+                            O.move(O.controlPosition);
+                            parentOffset = O.current.offset();
+                        });
+                    }
+                    O.current.bind('click', function (e) {
+                        var pageX = e.pageX || e.originalEvent.touches[0].pageX;
 
-                            $body.bind('mousemove.diff touchmove.diff', function (e) {
-                                e.preventDefault();
-                                var pageX = e.pageX || e.originalEvent.touches[0].pageX;
-                                O.controlPosition = pageX - parentOffset.left;
-                                O.clipAreaRatio = O.controlPosition / O.currentImageDim.width;
-                                O.move(O.controlPosition, O.clipAreaRatio);
-                            });
+                        O.controlPosition = pageX - parentOffset.left;
+                        O.clipAreaRatio = O.controlPosition / O.currentImageDim.width;
+                        O.animateItems(O.controlPosition);
+                        console.log('click');
+                    })
 
+                    O.current.bind('mousedown.diff', function(e){
+                        if(e.which == 1) {
+                            handler(e);
                             return false;
-                        });
-
-                        $body.bind('mouseup.diff touchend.diff mouseleave.diff touchleave.diff', function () {
-                            $body.unbind('mousemove.diff touchmove.diff');
-                        });
-
-
-                    });
-
-                    $images.each(function(){
-                        if(this.complete){
-                            O.loaded += 1;
-                            if (O.loaded == $images.length){
-                                O.current.trigger('loaded');
-                            }
-                        }else{
-                            $(this).load(function(){
-                                O.loaded += 1;
-                                if (O.loaded == $images.length) {
-                                    O.current.trigger('loaded');
-                                }
-                            })
                         }
                     });
 
-                }
+                    O.current.bind('touchstart.diff', handler);
+
+                    function handler(e) {
+                        O.stopAnimation(O.$control);
+                        O.stopAnimation(O.$clipedImage);
+                        var startPageY = e.pageY || e.originalEvent.touches[0].pageY,
+                            startPageX = e.pageX || e.originalEvent.touches[0].pageX,
+                            isSliderScroll = true,
+                            caller = 0;
+                        $body.bind('mousemove.diff touchmove.diff', function (e) {
+                            var pageX = e.pageX || e.originalEvent.touches[0].pageX,
+                                pageY = e.pageY || e.originalEvent.touches[0].pageY;
+
+                            if (Math.abs(pageY - startPageY) > Math.abs(pageX - startPageX) && caller < 1) {
+                                isSliderScroll = false;
+                                return true;
+                            }
+
+                            if (isSliderScroll) {
+                                O.controlPosition = pageX - parentOffset.left;
+                                O.clipAreaRatio = O.controlPosition / O.currentImageDim.width;
+                                O.move(O.controlPosition);
+                                caller += 1;
+                                return false;
+                            }
+                        });
+                    }
+
+                    $body.bind('mouseup.diff touchend.diff mouseleave.diff touchleave.diff', function () {
+                        $body.unbind('mousemove.diff touchmove.diff');
+                    });
+
+                    $images.bind('dragstart', function(){
+                        return false;
+                    })
+
+
+                });
+
+                $images.each(function(){
+                    if(this.complete){
+                        O.loaded += 1;
+                        if(O.loaded === 1){
+                            O.current.trigger('prebuild');
+                        }
+                        if (O.loaded == $images.length){
+                            O.current.trigger('loaded');
+                        }
+                    }else{
+                        $(this).load(function(){
+                            O.loaded += 1;
+                            if(O.loaded === 1){
+                                O.current.trigger('prebuild');
+                            }
+                            if (O.loaded == $images.length) {
+                                O.current.trigger('loaded');
+                            }
+                        })
+                    }
+                });
+
+
             },
             getImageRealSize: function (DOMElement) {
                 return {
@@ -187,6 +237,8 @@
 
                 O.current.css('height', O.currentImageDim.height);
 
+
+
                 O.$control.css('height', O.currentImageDim.height);
             },
             animateItems: function(dest) {
@@ -198,7 +250,7 @@
                     '-webkit-transition': 'all .3s ease-in-out',
                     'transition': 'all .3s ease-in-out'
                 });
-                O.move(dest)
+                O.move(dest);
             },
             stopAnimation: function ($elem) {
                 $elem.css({
