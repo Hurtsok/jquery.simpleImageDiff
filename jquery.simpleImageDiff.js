@@ -194,7 +194,7 @@
 
             },
             setClipArea: function (width) {
-                O.$clipedImage.css('clip', 'rect(0, ' + width + 'px,' + O.currentImageDim.width + 'px, 0)');
+                O.$clipedImage.css('clip', 'rect(0, ' + width + 'px,' + O.currentImageDim.height + 'px, 0)');
             },
             moveControl: function (dest) {
                 O.$control.css({
