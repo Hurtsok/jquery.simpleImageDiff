@@ -27,12 +27,14 @@ Responsive image diff tool works in all modern desktop and mobile browsers inclu
 ```
 
 ## Options
+
+You can pass options via js
 ```js 
      { 
         controlSpace: 18,
         maxWidth: 'auto', // if maxWidth more than image real width, maxWidth=imageRealWidth,
         resize: true,
-        width: false  //base width 
+        width: false  //// if you have responsive container, you must pass start width
         titles: {
             before: '',
             after: ''
@@ -48,4 +50,12 @@ Responsive image diff tool works in all modern desktop and mobile browsers inclu
             title: '<div class="b-diff__title"></div>'
         }
       }      
+```
+
+Or use data attributes, its more flexibly because you can config many blocks on page.
+```html
+        <div data-diff data-maxWidth="200" data-resize="1">
+            <img data-title="before" src="images/1.jpg" />
+            <img data-title="after" src="images/2.jpg" />
+        </div> 
 ```

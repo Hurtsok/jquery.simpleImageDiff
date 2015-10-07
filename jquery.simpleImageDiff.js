@@ -34,6 +34,9 @@
                 var $images = $elem.find('img').slice(0, 2),
                     $body = $('body');
 
+                defaults.maxWidth = $elem.attr('data-maxWidth') > 0 ? $elem.attr('data-maxWidth') : defaults.maxWidth;
+                defaults.resize = $elem.attr('data-resize') ? parseInt($elem.attr('data-resize')) : defaults.resize;
+
                 O.current = $(defaults.layout.container);
                 O.current.bind('prebuild', function(){
                     O.dimensions = O.getImageRealSize($images.first().get(0));
