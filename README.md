@@ -63,20 +63,12 @@ Or use data attributes, its more flexibly because you can config many blocks on 
 ## Build
 1. Install [nodejs](https://nodejs.org/en/)
 2. Install gulp globally:
-    ```cmd
-        npm install -g gulp
-    ```
+    `npm install -g gulp`
 3. Install npm dependencies:
-    ```cmd
-        npm install 
-    ```
+    `npm install`
 4. Run tasks
     build and minify js/stylus files
-    ```cmd 
-        gulp build
-    ```
+    `gulp build`
     <br/>
     run watcher for automatically build js/stylus files
-    ```
-        gulp dev
-    ```
+    `gulp dev`
