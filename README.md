@@ -75,6 +75,7 @@ Or use data attributes, its more flexibly because you can config many blocks on 
     ```cmd 
         gulp build
     ```
+    <br/>
     run watcher for automatically build js/stylus files
     ```
         gulp dev
