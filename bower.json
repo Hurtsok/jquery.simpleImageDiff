@@ -1,6 +1,6 @@
 {
   "name": "jquery.simpleImageDiff",
-  "version": "0.3.2-beta2",
+  "version": "0.3.2-beta3",
   "description": "Responsive diff images tools",
   "main": [
     "jquery.simpleImageDiff.js",
