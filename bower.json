@@ -29,7 +29,8 @@
     "tests",
     "src/sample",
     "src/stylus",
-    "src/javascript",
-    "!src/javascript/*.js"
+    "gulp",
+    "package.json",
+    "*.js"
   ]
 }
